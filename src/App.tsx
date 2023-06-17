@@ -1,9 +1,9 @@
 import React from 'react';
 
-import HomePage from './pages/HomePage/HomePage';
+import Dashboard from './pages/Dashboard/Dashboard';
 
 import './styles/Main.css';
 
-const App: React.FC = () => (<HomePage pageTitle='Hello there' />);
+const App: React.FC = () => <Dashboard />;
 
 export default App;
