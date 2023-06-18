@@ -1,13 +1,3 @@
 .dashboard {
   display: flex;
 }
-
-.dashboard .sidebar {
-  width: 30%;
-  border-right: 2px solid #333;
-  height: 100vh;
-}
-
-.dashboard .map-section {
-  width: 70%;
-}

@@ -1,7 +1,7 @@
 import React from 'react';
 import mapboxgl from 'mapbox-gl';
 
-import { MapState, Action, Dispatch, MapProviderProps } from './MapContextTypes';
+import { MapState, ProjetionName, Action, Dispatch, MapProviderProps } from './MapContextTypes';
 
 import { MAP_KEY } from '../../const';
 
@@ -9,20 +9,25 @@ const MapStateContext = React.createContext<{ state: MapState; dispatch: Dispatc
   undefined
 );
 
+const basicMap = (projectionName: ProjetionName = undefined) =>
+  new mapboxgl.Map({
+    container: 'map-container', // container ID
+    style: 'mapbox://styles/mapbox/streets-v12', // style URL
+    center: [-74.5, 40], // starting position [lng, lat]
+    zoom: 9, // starting zoom
+    projection: { name: projectionName ?? 'mercator' },
+  });
+
 const MapReducer = (state: MapState, action: Action) => {
-  const { type } = action;
+  const { type, payload } = action || {};
 
   switch (type) {
     case 'init-map': {
       mapboxgl.accessToken = MAP_KEY;
-
-      const newMap = new mapboxgl.Map({
-        container: 'map-container', // container ID
-        style: 'mapbox://styles/mapbox/streets-v12', // style URL
-        center: [-74.5, 40], // starting position [lng, lat]
-        zoom: 9, // starting zoom
-      });
-
+      return basicMap();
+    }
+    case 'change-projection': {
+      const newMap = basicMap(payload?.projection) as any;
       return newMap;
     }
     default: {
