@@ -1,22 +1,13 @@
 import React from 'react';
 import mapboxgl from 'mapbox-gl';
 
-import { MapState, ProjetionName, Action, Dispatch, MapProviderProps } from './MapContextTypes';
+import { MapState, Action, Dispatch, MapProviderProps } from './MapContextTypes';
 
-import { MAP_KEY } from '../../const';
+import { MAP_KEY, calculatePoligon, basicMap, drawPolygon } from '../../mapUtils';
 
 const MapStateContext = React.createContext<{ state: MapState; dispatch: Dispatch } | undefined>(
   undefined
 );
-
-const basicMap = (projectionName: ProjetionName = undefined) =>
-  new mapboxgl.Map({
-    container: 'map-container', // container ID
-    style: 'mapbox://styles/mapbox/streets-v12', // style URL
-    center: [-74.5, 40], // starting position [lng, lat]
-    zoom: 9, // starting zoom
-    projection: { name: projectionName ?? 'mercator' },
-  });
 
 const MapReducer = (state: MapState, action: Action) => {
   const { type, payload } = action || {};
@@ -24,12 +15,67 @@ const MapReducer = (state: MapState, action: Action) => {
   switch (type) {
     case 'init-map': {
       mapboxgl.accessToken = MAP_KEY;
-      return basicMap();
+      const newMap = basicMap();
+
+      if (payload?.enableDrawing) {
+        const draw = drawPolygon();
+        newMap.addControl(draw);
+        newMap.on('draw.create', (e) => calculatePoligon(e, draw));
+        newMap.on('draw.delete', (e) => calculatePoligon(e, draw));
+        newMap.on('draw.update', (e) => calculatePoligon(e, draw));
+
+        return { map: newMap, mapFeatures: { draw } };
+      }
+
+      return { map: newMap, mapFeatures: {} };
     }
     case 'change-projection': {
       const newMap = basicMap(payload?.projection) as any;
-      return newMap;
+      const mapFeatures = state?.mapFeatures ?? {};
+      return { map: newMap, mapFeatures };
     }
+    /* Removing the drawMode is not working properly, so this action will be disabled until
+     * a better solution is found.
+    case 'draw-mode': {
+      // get current state
+      const { map, mapFeatures } = state || {};
+      const { drawMode } = payload || {};
+
+      if (mapFeatures?.draw && drawMode === 'off') {
+        // disable draw
+        const { draw } = mapFeatures || {};
+        if (draw) {
+          draw.remove();
+        }
+
+        return { map, mapFeatures: {} };
+      } else if (drawMode === 'on') {
+        // enable draw
+        const newMap = map;
+
+        const draw = new MapboxDraw({
+          displayControlsDefault: false,
+          // Select which mapbox-gl-draw control buttons to add to the map.
+          controls: {
+            polygon: true,
+            trash: true,
+          },
+          // Set mapbox-gl-draw to draw by default.
+          // The user does not have to click the polygon control button first.
+          defaultMode: 'draw_polygon',
+        });
+
+        newMap.addControl(draw);
+        newMap.on('draw.create', (e: any) => calculatePoligon(e, draw));
+        newMap.on('draw.delete', (e: any) => calculatePoligon(e, draw));
+        newMap.on('draw.update', (e: any) => calculatePoligon(e, draw));
+
+        return { map: newMap, mapFeatures: { draw } };
+      }
+
+      const newMap = state;
+      return { map: newMap };
+    }*/
     default: {
       return state;
     }
