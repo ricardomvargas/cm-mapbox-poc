@@ -13,7 +13,7 @@ const MapContainer: React.FC = () => {
     console.log('1 - state:', state);
     if (!state) {
       console.log('2 - state:', state);
-      dispatch({ type: 'init-map' });
+      dispatch({ type: 'init-map', payload: { enableDrawing: true } });
     }
   }, []);
 
