@@ -5,11 +5,16 @@ import { useMap } from '../../context/mapContext/MapContext';
 import './Sidebar.css';
 
 const Sidebar = () => {
+  const [enableDrawing, setEnableDrawing] = useState('Enable');
   const [currentProjection, setCurrentProjection] = useState('mercator');
   const { state, dispatch } = useMap();
 
   const changeProjection = (e: any) =>
     dispatch({ type: 'change-projection', payload: { projection: e.target.value } });
+
+  const handleActiveDrawing = () => {
+    setEnableDrawing(enableDrawing === 'Enable' ? 'Disable' : 'Enable');
+  };
 
   return (
     <section className='sidebar'>
@@ -21,8 +26,8 @@ const Sidebar = () => {
         </select>
       </div>
       <div>
-        <label>Another item:</label>
-        <input type='text' value='another input...' />
+        <label>Drawing:</label>
+        <button onClick={handleActiveDrawing}>{enableDrawing}</button>
       </div>
       <div>
         <label>Another item:</label>

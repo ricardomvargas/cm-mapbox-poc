@@ -3,7 +3,7 @@ import React from 'react';
 import { MapProvider } from '../../context/mapContext/MapContext';
 
 import MapContainer from '../../components/mapContainer/MapContainer';
-import Sidebar from '../../components/sidebar/SideBar';
+import Sidebar from '../../components/sidebar/Sidebar';
 
 import './Dashboard.css';
 
