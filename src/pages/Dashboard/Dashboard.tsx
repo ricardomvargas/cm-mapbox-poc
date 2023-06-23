@@ -1,22 +1,17 @@
 import React from 'react';
 
-// import { MapProvider } from '../../context/mapContext/MapContext';
+import { MapProvider } from '../../context/mapContext/MapContext';
 
-// import MapContainer from '../../components/mapContainer/MapContainer';
-// import Sidebar from '../../components/sidebar/Sidebar';
+import MapContainer from '../../components/MapContainer/MapContainer';
 
 import './Dashboard.css';
 
 const Dashboard: React.FC = () => (
-  <div>test</div>
-  // <MapProvider>
-  //   <article className='dashboard'>
-  //     <Sidebar />
-  //     <section className='map-section'>
-  //       <MapContainer />
-  //     </section>
-  //   </article>
-  // </MapProvider>
+  <MapProvider>
+    <article className='dashboard'>
+      <MapContainer />
+    </article>
+  </MapProvider>
 );
 
 export default Dashboard;

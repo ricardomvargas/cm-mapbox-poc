@@ -9,6 +9,7 @@ export type Action =
   | { type: 'init-map'; payload?: { map?: Map; enableDrawing?: true | false } }
   | { type: 'change-projection'; payload: { projection: ProjetionName } }
   | { type: 'draw-mode'; payload: { drawMode: 'on' | 'off' } }
+  | { type: 'add-layer'; payload: { name: string, layer: string }}
   | undefined;
 
 export type Dispatch = (action: Action) => void;

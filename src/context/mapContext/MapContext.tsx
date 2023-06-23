@@ -9,6 +9,7 @@ const MapStateContext = React.createContext<{ state: MapState; dispatch: Dispatc
   undefined
 );
 
+// !!! IGNORE THIS FILE !!!
 const MapReducer = (state: MapState, action: Action) => {
   const { type, payload } = action || {};
 
@@ -33,6 +34,30 @@ const MapReducer = (state: MapState, action: Action) => {
       const newMap = basicMap(payload?.projection) as any;
       const mapFeatures = state?.mapFeatures ?? {};
       return { map: newMap, mapFeatures };
+    }
+    case 'add-layer': {
+      const newMap = { ...state };
+      console.log('newMap:', newMap);
+
+      newMap.map.addSource(payload?.name, {
+        'tiles': [payload?.layer],
+        'tileSize': 256,
+        'type': 'raster',
+        'attribution':'PDOK',
+        'scheme': 'tms', 
+      });
+
+      newMap.map.addLayer(
+          {
+              'id': `id-${payload?.name}`,
+              'type': 'raster',
+              'source': payload?.name,
+              'paint': {}
+          },
+          'building' // Place layer under labels, roads and buildings.
+      );
+
+      return newMap;
     }
     /* Removing the drawMode is not working properly, so this action will be disabled until
      * a better solution is found.
