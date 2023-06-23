@@ -48,6 +48,7 @@ export const calculatePoligon = (e: any, draw: any) => {
   }
 };
 
+// NL PROJECTION: 28992
 export const wmsLayers = [
   { name: 'wandelnetwerken', layer: 'https://service.pdok.nl/wandelnet/regionale-wandelnetwerken/wms/v1_0?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&layers=wandelnetwerken&CRS=EPSG%3A3857&STYLES=&WIDTH=1920&HEIGHT=465&BBOX={bbox-epsg-3857}'},
   { name: 'administrativeBoundary', layer: 'https://service.pdok.nl/kadaster/au/wms/v2_0?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&LAYERS=AU.AdministrativeBoundary&WIDTH=256&HEIGHT=256&CRS=EPSG%3A3857&STYLES=&BBOX={bbox-epsg-3857}'}
