@@ -32,6 +32,8 @@ const MapContainer: React.FC = () => {
       const layerName = e.target.value;
       const layerDetails = wmsLayers.find((layer) => layer.name === layerName);
 
+      console.log('layerDetails:', layerDetails);
+
       newMap.addSource(layerName, {
         'tiles': [layerDetails?.layer],
         'tileSize': 256,
@@ -86,6 +88,7 @@ const MapContainer: React.FC = () => {
             <option value='0'>Select layer</option>
             <option value='wandelnetwerken'>Regionale wandelnetwerken</option>
             <option value='administrativeBoundary'>Administrative Boundary</option>
+            <option value='fietsnetwerken'>fietsnetwerken</option>
           </select>
         </div>
         <div>

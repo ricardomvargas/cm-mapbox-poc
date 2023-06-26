@@ -20,7 +20,12 @@ export const basicMap = (projectionName: ProjetionName = undefined) => {
     // 'globe' is the default
     // projection: 'lambertConformalConic',
     projection: { name: projectionName ?? 'mercator' },
-  });
+    // projection: {
+    //     name: 'lambertConformalConic',
+    //     center: [5.295410, 52.05249],
+    //     parallels: [1, 30]
+    //   }
+  })
 }
   
 export const drawPolygon = () => new MapboxDraw({
@@ -51,5 +56,6 @@ export const calculatePoligon = (e: any, draw: any) => {
 // NL PROJECTION: 28992 | MERCATOR: 3857
 export const wmsLayers = [
   { name: 'wandelnetwerken', layer: 'https://service.pdok.nl/wandelnet/regionale-wandelnetwerken/wms/v1_0?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&layers=wandelnetwerken&CRS=EPSG%3A3857&STYLES=&WIDTH=1920&HEIGHT=465&BBOX={bbox-epsg-3857}'},
-  { name: 'administrativeBoundary', layer: 'https://service.pdok.nl/kadaster/au/wms/v2_0?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&LAYERS=AU.AdministrativeBoundary&WIDTH=256&HEIGHT=256&CRS=EPSG%3A3857&STYLES=&BBOX={bbox-epsg-3857}'}
+  { name: 'administrativeBoundary', layer: 'https://service.pdok.nl/kadaster/au/wms/v2_0?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&LAYERS=AU.AdministrativeBoundary&WIDTH=256&HEIGHT=256&CRS=EPSG%3A3857&STYLES=&BBOX={bbox-epsg-3857}'},
+  { name: 'fietsnetwerken', layer: 'https://service.pdok.nl/fietsplatform/regionale-fietsnetwerken/wms/v1_0?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&LAYERS=fietsnetwerken&WIDTH=256&HEIGHT=256&CRS=EPSG%3A3857&STYLES=&BBOX={bbox-epsg-3857}' }
 ]
