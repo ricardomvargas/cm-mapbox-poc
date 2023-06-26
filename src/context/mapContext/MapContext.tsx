@@ -31,7 +31,7 @@ const MapReducer = (state: MapState, action: Action) => {
       return { map: newMap, mapFeatures: {} };
     }
     case 'change-projection': {
-      const newMap = basicMap(payload?.projection) as any;
+      const newMap = basicMap(payload?.projection as any) as any;
       const mapFeatures = state?.mapFeatures ?? {};
       return { map: newMap, mapFeatures };
     }

@@ -20,4 +20,8 @@
   .sidebar div input {
     width: 95%;
   }
+
+  .sidebar .change-latlon input[type='text'] {
+    margin-bottom: 5px
+  }
   
