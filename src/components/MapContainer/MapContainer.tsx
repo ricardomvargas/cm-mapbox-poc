@@ -133,15 +133,16 @@ const MapContainer: React.FC = () => {
   return (
     <>
       <section className='sidebar'>
+        <h2>Baisc features</h2>
         <div>
-          <label>Projetion:</label>
+          <label>Change Projetion:</label>
           <select onChange={(e) => changeProjection(e)}>
             <option value='mercator'>Mercator</option>
             <option value='globe'>Globe</option>
           </select>
         </div>
         <div>
-          <label>Layer:</label>
+          <label>Change Layer:</label>
           <select onChange={(e) => changeLayer(e)}>
             <option value='0'>Select layer</option>
             <option value='wandelnetwerken'>Regionale wandelnetwerken</option>
@@ -150,25 +151,19 @@ const MapContainer: React.FC = () => {
           </select>
         </div>
         <div>
-          <label>Another item:</label>
           <button onClick={onEnableDrawingClick}>{enableDrawing} drawing</button>
         </div>
         <hr/>
+        <h2>3D</h2>      
         <div>
-          <label>3D Map:</label>
           <button onClick={() => onDisplay3D(!display3D)}>{`${display3D ? 'Disable' : 'Enable'} 3D mode`}</button>
         </div>
+        <div>
+          <button onClick={onAddingSatellite}>Add Satellite in Australia</button>
+        </div>
         <hr/>
-        <div>
-          <label>Add a Satellite in Australia:</label>
-          <button onClick={onAddingSatellite}>Add to the map</button>
-        </div>
-        <div>
-          <label>Add a building in New York:</label>
-          <button onClick={onAddingBuilding}>Add to the map</button>
-        </div>
-        <div className='change-latlon'>
-          <label>Change coordinates:</label>
+        <h2>Change coordinates</h2>    
+        <div className='change-latlon'>      
           <input type='text' value={lat} name='lat' onChange={(e) => onLatLonChange(e, 'lat')} />
           <input type='text' value={lon} name='lon' onChange={(e) => onLatLonChange(e, 'lon')}  />
           <button onClick={onCoordinatesChange}>Apply</button>
