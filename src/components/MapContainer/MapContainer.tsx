@@ -1,6 +1,15 @@
 import React, { useEffect, useState } from 'react';
 
-import { basicMap, wmsLayers, calculatePoligon, drawPolygon } from '../../mapUtils';
+import { 
+  basicMap, 
+  wmsLayers, 
+  calculatePoligon, 
+  drawPolygon, 
+  basic3DMap, 
+  antena3DLayer,
+  add3DBuilding,
+  COORD_3D_SATELLITE
+} from '../../mapUtils';
 
 import { MapState } from '../../context/mapContext/MapContextTypes';
 
@@ -11,6 +20,9 @@ const MapContainer: React.FC = () => {
   const [mapState, setMapState] = useState<MapState | undefined>(undefined);
   const [drawState, setDrawState] = useState<any>(undefined);
   const [enableDrawing, setenableDrawing] = useState('Enable');
+  const [display3D, setDisplay3D] = useState(false);
+  const [lat, setLat] = useState<any>('');
+  const [lon, setLon] = useState<any>('');
 
   useEffect(() => {
     if (!mapState) {
@@ -72,18 +84,65 @@ const MapContainer: React.FC = () => {
     setenableDrawing(enableDrawing === 'Disable' ? 'Enable' : 'Disable');
   }
 
+  // display world 3D buildings
+  const onDisplay3D = (display: any) => {
+    if (display) {
+      const newMap = basic3DMap();
+      setMapState(newMap);
+    } else {
+      const newMap = basicMap();
+      setMapState(newMap);
+    }
+    
+    setDisplay3D(display);
+  }
+
+  // adding 3D objetc in the map
+  const onAddingSatellite = () => {
+    // const newMap = mapState;
+    // newMap.addLayer(antena3DLayer());
+    // newMap.setZoom(17);
+    // newMap.setPitch(60);
+    // newMap.setBearing(-60);
+    // // Set the center were the object will be added
+    // newMap.setCenter(COORD_3D_SATELLITE);
+    const newMap = antena3DLayer(mapState);
+    setMapState(newMap);
+  }
+
+  // adding 3D objetc in the map
+  const onAddingBuilding = () => {
+    const newMap = add3DBuilding(mapState);
+    setMapState(newMap);
+  }
+
+  const onLatLonChange = (e: any, type: 'lat' | 'lon') => {
+    if(type === 'lat') {
+      setLat(e.target.value);
+    } else {
+      setLon(e.target.value);
+    }
+  }
+
+  const onCoordinatesChange = () => {
+    if (lat?.length > 0 && lon?.length > 0) {
+      mapState.setCenter([lat, lon]);
+    }
+  }
+
   return (
     <>
       <section className='sidebar'>
+        <h2>Baisc features</h2>
         <div>
-          <label>Projetion:</label>
+          <label>Change Projetion:</label>
           <select onChange={(e) => changeProjection(e)}>
             <option value='mercator'>Mercator</option>
             <option value='globe'>Globe</option>
           </select>
         </div>
         <div>
-          <label>Layer:</label>
+          <label>Change Layer:</label>
           <select onChange={(e) => changeLayer(e)}>
             <option value='0'>Select layer</option>
             <option value='wandelnetwerken'>Regionale wandelnetwerken</option>
@@ -92,8 +151,22 @@ const MapContainer: React.FC = () => {
           </select>
         </div>
         <div>
-          <label>Another item:</label>
           <button onClick={onEnableDrawingClick}>{enableDrawing} drawing</button>
+        </div>
+        <hr/>
+        <h2>3D</h2>      
+        <div>
+          <button onClick={() => onDisplay3D(!display3D)}>{`${display3D ? 'Disable' : 'Enable'} 3D mode`}</button>
+        </div>
+        <div>
+          <button onClick={onAddingSatellite}>Add Satellite in Australia</button>
+        </div>
+        <hr/>
+        <h2>Change coordinates</h2>    
+        <div className='change-latlon'>      
+          <input type='text' value={lat} name='lat' onChange={(e) => onLatLonChange(e, 'lat')} />
+          <input type='text' value={lon} name='lon' onChange={(e) => onLatLonChange(e, 'lon')}  />
+          <button onClick={onCoordinatesChange}>Apply</button>
         </div>
       </section>
       <section className='map-section'>

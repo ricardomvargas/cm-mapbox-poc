@@ -1,23 +1,32 @@
 .sidebar {
-    padding: 10px;
-    width: 20%;
-    border-right: 2px solid #333;
-    height: 100vh;
-  }
-  
-  .sidebar div {
-    margin-bottom: 15px;
-  }
-  
-  .sidebar div label {
-    display: block;
-  }
-  
-  .sidebar div select {
-    width: 100%;
-  }
-  
-  .sidebar div input {
-    width: 95%;
-  }
+  padding: 10px;
+  width: 20%;
+  border-right: 2px solid #333;
+  height: 100vh;
+}
+
+.sidebar h2 {
+  text-align: center;
+  margin: 0;
+}
+
+.sidebar div {
+  margin-bottom: 15px;
+}
+
+.sidebar div label {
+  display: block;
+}
+
+.sidebar div select {
+  width: 100%;
+}
+
+.sidebar div input {
+  width: 95%;
+}
+
+.sidebar .change-latlon input[type='text'] {
+  margin-bottom: 5px
+}
   
