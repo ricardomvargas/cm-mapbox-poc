@@ -7,14 +7,12 @@ import {
   drawPolygon, 
   basic3DMap, 
   antena3DLayer,
-  add3DBuilding,
-  COORD_3D_SATELLITE
 } from '../../mapUtils';
-
-import { MapState } from '../../context/mapContext/MapContextTypes';
 
 import './MapContainer.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
+
+type MapState = any;
 
 const MapContainer: React.FC = () => {
   const [mapState, setMapState] = useState<MapState | undefined>(undefined);
@@ -99,20 +97,7 @@ const MapContainer: React.FC = () => {
 
   // adding 3D objetc in the map
   const onAddingSatellite = () => {
-    // const newMap = mapState;
-    // newMap.addLayer(antena3DLayer());
-    // newMap.setZoom(17);
-    // newMap.setPitch(60);
-    // newMap.setBearing(-60);
-    // // Set the center were the object will be added
-    // newMap.setCenter(COORD_3D_SATELLITE);
     const newMap = antena3DLayer(mapState);
-    setMapState(newMap);
-  }
-
-  // adding 3D objetc in the map
-  const onAddingBuilding = () => {
-    const newMap = add3DBuilding(mapState);
     setMapState(newMap);
   }
 

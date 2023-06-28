@@ -10,7 +10,7 @@ import {
   Vector3 
 } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
-import { Threebox, tb } from 'threebox-plugin'; 
+import { Threebox } from 'threebox-plugin'; 
 // import tb from 'threebox-plugin';
 
 export const MAP_KEY =
