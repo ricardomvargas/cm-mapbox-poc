@@ -75,7 +75,7 @@ const MapContainer: React.FC = () => {
       mapState.on('draw.update', (e: any) => calculatePoligon(e, draw));
       setDrawState(draw);
     } else {
-      // NOT WORKING, NEED TO CHECK
+      // NOT WORKING
       // drawState.remove();
     }
 
