@@ -42,8 +42,6 @@ const MapContainer: React.FC = () => {
       const layerName = e.target.value;
       const layerDetails = wmsLayers.find((layer) => layer.name === layerName);
 
-      console.log('layerDetails:', layerDetails);
-
       newMap.addSource(layerName, {
         'tiles': [layerDetails?.layer],
         'tileSize': 256,

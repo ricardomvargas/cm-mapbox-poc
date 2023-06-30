@@ -206,7 +206,6 @@ export const add3DBuilding = (newMap) => {
       };
       
       tb?.loadObj(options, (model) => {
-        console.log('tb.loadObj > tb:', tb);
         model.setCoords(COORD_3D_BUILDING);
         model.setRotation({ x: 0, y: 0, z: 241 });
         tb?.add(model);
@@ -214,7 +213,6 @@ export const add3DBuilding = (newMap) => {
     },
      
     render: function () {
-      console.log('add3DBuilding > functon > tb:', tb);
       tb?.update(); 
     }
   });
